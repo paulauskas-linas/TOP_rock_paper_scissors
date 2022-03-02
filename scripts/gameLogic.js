@@ -22,22 +22,39 @@ function playRound (playerSelection, computerSelection) {
 
 if player = rock and computer = rock -> it's a tie
 if player = paper and computer = paper -> it's a tie
-if player = scissors and computer = scissors -> it's a tie
-
-lose cases
+if player = scissors and computer = scissors -> it's a tie */
+if ( 
+    (playerSelection == "rock" && computerSelection == "rock") ||
+    (playerSelection == "paper" && computerSelection == "paper") ||
+    (playerSelection == "scissors" && computerSelection == "scissors")
+ ) {
+        alert(`It's a tie! You both have chosen ${playerSelection}`);
+/*lose cases
 if player = rock and computer = paper -> you lose
 if player = paper and computer = scissors -> you lose
-if player = scissors and computer = rock -> you lose
+if player = scissors and computer = rock -> you lose*/
 
-win cases
-
+    } else if (
+        (playerSelection == "rock" && computerSelection == "paper") || 
+        (playerSelection == "paper" && computerSelection == "scissors") ||
+        (playerSelection == "scissors" && computerSelection == "rock")
+    ) {
+        alert(`You lose! ${computerSelection} beats ${playerSelection}`);
+/*win cases
 if player = rock and computer = scissors -> you win
 if player = paper and computer = rock -> you win
 if player = scissors and computer = paper -> you lose
 */
-
+    } else if (
+        (playerSelection == "rock" && computerSelection == "scissors") ||
+        (playerSelection == "paper" && computerSelection == "rock") ||
+        (playerSelection == "scissors" && computerSelection == "paper")
+    ) {
+        alert(`You win! ${playerSelection} beats ${computerSelection}`);
+    }
 
 }
+console.log(playRound(playerSelection, computerSelection));
 
 /*make a  function game() that calls playRound() 5 times, keeps score and reports a winner/loser at the end.
 use prompt()
