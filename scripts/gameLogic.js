@@ -1,62 +1,61 @@
-// make a function computerPlay, that randomly returns "Rock" "Paper" "Scissors"
-const choises=["rock", "paper", "scissors"];
+const choices=["rock", "paper", "scissors"];
 
 function computerPlay() {
-    return choises[Math.floor(choises.length*Math.random())];
+    return choices[Math.floor(choices.length*Math.random())];
 };
-console.log(computerPlay());
-
-/* make player to choose the item and return it to lowercase
-for easier comparison */
-let playerPlay = prompt("Rock, Paper or Scissors?", "Paper").toLowerCase();
-
-console.log(playerPlay);
-/* make a function playRound() that plays a single round, takes two parameters playerSelection and 
-computerSelection and returns a string with "You lose! Paper beats Rock" (make it case insensitive)
-*/
-const playerSelection = playerPlay;
-const computerSelection = computerPlay();
 
 function playRound (playerSelection, computerSelection) {
-/* tie cases
-
-if player = rock and computer = rock -> it's a tie
-if player = paper and computer = paper -> it's a tie
-if player = scissors and computer = scissors -> it's a tie */
 if ( 
     (playerSelection == "rock" && computerSelection == "rock") ||
     (playerSelection == "paper" && computerSelection == "paper") ||
     (playerSelection == "scissors" && computerSelection == "scissors")
  ) {
         alert(`It's a tie! You both have chosen ${playerSelection}`);
-/*lose cases
-if player = rock and computer = paper -> you lose
-if player = paper and computer = scissors -> you lose
-if player = scissors and computer = rock -> you lose*/
-
     } else if (
         (playerSelection == "rock" && computerSelection == "paper") || 
         (playerSelection == "paper" && computerSelection == "scissors") ||
         (playerSelection == "scissors" && computerSelection == "rock")
     ) {
         alert(`You lose! ${computerSelection} beats ${playerSelection}`);
-/*win cases
-if player = rock and computer = scissors -> you win
-if player = paper and computer = rock -> you win
-if player = scissors and computer = paper -> you lose
-*/
+        computerScore++;
     } else if (
         (playerSelection == "rock" && computerSelection == "scissors") ||
         (playerSelection == "paper" && computerSelection == "rock") ||
         (playerSelection == "scissors" && computerSelection == "paper")
     ) {
         alert(`You win! ${playerSelection} beats ${computerSelection}`);
+        playerScore++;
+    } else if (
+        (playerSelection !== "rock") ||
+        (playerSelection !== "paper") ||
+        (playerSelection !== "scissors")
+    ) {
+        playerSelection = playerSelection.toUpperCase()
+        alert(`Does this ${playerSelection} look like rock, paper or scissors?`);
     }
-
 }
-console.log(playRound(playerSelection, computerSelection));
 
-/*make a  function game() that calls playRound() 5 times, keeps score and reports a winner/loser at the end.
-use prompt()
-*/
+let playerScore = 0;
+let computerScore = 0;
+let roundCount = 1;
 
+// write condition to check if the playround is correct and if not BREAK for loop, write alert
+// that the game is over
+
+function game() {
+    for (let i=0; i<5; i++) {
+        alert(`${roundCount} round of 5`);
+        let playerSelection = prompt("Rock, Paper or Scissors?", "Paper").toLowerCase();
+        let computerSelection = computerPlay();
+        playRound(playerSelection, computerSelection);
+        roundCount++; 
+    };
+    if (playerScore == computerScore) {
+        alert(`Game of 5 results. \nIt's a tie. \nPlayer: ${playerScore}  Computer: ${computerScore}`)
+    } else if (playerScore > computerScore) {
+        alert(`Game of 5 results. \nYou win. \nPlayer: ${playerScore}  Computer: ${computerScore}`)
+    } else if (playerScore < computerScore) {
+        alert(`Game of 5 results. \nYou lost. \nPlayer: ${playerScore}  Computer: ${computerScore}`)
+    };
+}
+console.log(game());
