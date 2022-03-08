@@ -11,6 +11,7 @@ if (
     (playerSelection == "scissors" && computerSelection == "scissors")
  ) {
         alert(`It's a tie! You both have chosen ${playerSelection}`);
+        isGameValid = "Yes";
     } else if (
         (playerSelection == "rock" && computerSelection == "paper") || 
         (playerSelection == "paper" && computerSelection == "scissors") ||
@@ -18,6 +19,7 @@ if (
     ) {
         alert(`You lose! ${computerSelection} beats ${playerSelection}`);
         computerScore++;
+        isGameValid = "Yes";
     } else if (
         (playerSelection == "rock" && computerSelection == "scissors") ||
         (playerSelection == "paper" && computerSelection == "rock") ||
@@ -25,6 +27,7 @@ if (
     ) {
         alert(`You win! ${playerSelection} beats ${computerSelection}`);
         playerScore++;
+        isGameValid = "Yes";
     } else if (
         (playerSelection !== "rock") ||
         (playerSelection !== "paper") ||
@@ -32,30 +35,35 @@ if (
     ) {
         playerSelection = playerSelection.toUpperCase()
         alert(`Does this ${playerSelection} look like rock, paper or scissors?`);
+        isGameValid = "No";
     }
 }
 
 let playerScore = 0;
 let computerScore = 0;
 let roundCount = 1;
-
-// write condition to check if the playround is correct and if not BREAK for loop, write alert
-// that the game is over
+let isGameValid = "Yes"; 
 
 function game() {
     for (let i=0; i<5; i++) {
-        alert(`${roundCount} round of 5`);
+        alert(`Rock, paper, scissors. 5 round game. \n${roundCount} round of 5`);
         let playerSelection = prompt("Rock, Paper or Scissors?", "Paper").toLowerCase();
         let computerSelection = computerPlay();
         playRound(playerSelection, computerSelection);
-        roundCount++; 
+        roundCount++;
+        if (isGameValid == "No") {
+            alert(`Please play fair. \nThe game ends now. \nYou can restart by refreshing the page.`)
+            break;
+        }; 
     };
-    if (playerScore == computerScore) {
+    if (isGameValid == "Yes" && playerScore == computerScore) {
         alert(`Game of 5 results. \nIt's a tie. \nPlayer: ${playerScore}  Computer: ${computerScore}`)
-    } else if (playerScore > computerScore) {
+    } else if (isGameValid == "Yes" && playerScore > computerScore) {
         alert(`Game of 5 results. \nYou win. \nPlayer: ${playerScore}  Computer: ${computerScore}`)
-    } else if (playerScore < computerScore) {
+    } else if (isGameValid == "Yes" && playerScore < computerScore) {
         alert(`Game of 5 results. \nYou lost. \nPlayer: ${playerScore}  Computer: ${computerScore}`)
-    };
+    } else if (isGameValid = "No") {
+
+    }
 }
-console.log(game());
+game();
