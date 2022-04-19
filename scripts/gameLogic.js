@@ -1,10 +1,25 @@
 const choices=["rock", "paper", "scissors"];
 
+const playerButtons = document.querySelectorAll(".player-button");
+
+playerButtons.forEach(button => {
+    const playerSelection = button.getAttribute('id').toLowerCase();
+    button.addEventListener('click', () => playRound(playerSelection, computerPlay()))
+});
+
+
 function computerPlay() {
     return choices[Math.floor(choices.length*Math.random())];
 };
 
+// let computerSelection = computerPlay();
+let playerScore = 0;
+let computerScore = 0;
+let roundCount = 1;
+let isGameValid = "Yes"; 
+
 function playRound (playerSelection, computerSelection) {
+        
 if ( 
     (playerSelection == "rock" && computerSelection == "rock") ||
     (playerSelection == "paper" && computerSelection == "paper") ||
@@ -28,7 +43,8 @@ if (
         alert(`You win! ${playerSelection} beats ${computerSelection}`);
         playerScore++;
         isGameValid = "Yes";
-    } else if (
+    } 
+    /*else if (
         (playerSelection !== "rock") ||
         (playerSelection !== "paper") ||
         (playerSelection !== "scissors")
@@ -36,14 +52,10 @@ if (
         playerSelection = playerSelection.toUpperCase()
         alert(`Does this ${playerSelection} look like rock, paper or scissors?`);
         isGameValid = "No";
-    }
+    } */
 }
 
-let playerScore = 0;
-let computerScore = 0;
-let roundCount = 1;
-let isGameValid = "Yes"; 
-
+/*
 function game() {
     for (let i=0; i<5; i++) {
         alert(`Rock, paper, scissors. 5 round game. \n${roundCount} round of 5`);
@@ -66,4 +78,4 @@ function game() {
 
     }
 }
-game();
+game(); */
