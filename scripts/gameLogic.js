@@ -1,81 +1,80 @@
+const playerButtons = document.querySelectorAll(".player-button");
+const computerChoice = document.querySelector(".computer-choice");
+const roundCounter = document.querySelector(".round-counter");
+const computerScoreBoard = document.querySelector(".computer-score");
+const playerScoreBoard = document.querySelector(".player-score");
+const roundComments = document.querySelector(".round-comments");
+const gameComments = document.querySelector(".game-comments");
 const choices=["rock", "paper", "scissors"];
 
-const playerButtons = document.querySelectorAll(".player-button");
+let playerScore = 0;
+let computerScore = 0;
+let roundCount = 0;
 
 playerButtons.forEach(button => {
     const playerSelection = button.getAttribute('id').toLowerCase();
-    button.addEventListener('click', () => playRound(playerSelection, computerPlay()))
+    button.addEventListener('click', () => {
+        computerChoice.textContent = `${computerPlay()}`;
+        playRound(playerSelection, computerChoice.textContent);
+        roundCounter.textContent = roundCount;
+    })
 });
-
 
 function computerPlay() {
     return choices[Math.floor(choices.length*Math.random())];
 };
 
-// let computerSelection = computerPlay();
-let playerScore = 0;
-let computerScore = 0;
-let roundCount = 1;
-let isGameValid = "Yes"; 
+function playRound (playerSelection, computerSelection) { 
+    if ( 
+        (playerSelection == "rock" && computerSelection == "rock") ||
+        (playerSelection == "paper" && computerSelection == "paper") ||
+        (playerSelection == "scissors" && computerSelection == "scissors")
+        ) {
+            roundComments.textContent =`It's a tie! You both have chosen ${playerSelection}`;
+            roundCount++;
+        } else if (
+            (playerSelection == "rock" && computerSelection == "paper") || 
+            (playerSelection == "paper" && computerSelection == "scissors") ||
+            (playerSelection == "scissors" && computerSelection == "rock")
+            ) {
+                roundComments.textContent = `You lose! ${computerSelection} beats ${playerSelection}`;
+                computerScore++;
+                roundCount++;
+                computerScoreBoard.textContent = `${computerScore}`
+                playerScoreBoard.textContent = `${playerScore}`;
+                checkWinner();
+            } else if (
+                (playerSelection == "rock" && computerSelection == "scissors") ||
+                (playerSelection == "paper" && computerSelection == "rock") ||
+                (playerSelection == "scissors" && computerSelection == "paper")
+                ) {
+                    roundComments.textContent = `You win! ${playerSelection} beats ${computerSelection}`;
+                    playerScore++;
+                    roundCount++;
+                    computerScoreBoard.textContent = `${computerScore}`
+                    playerScoreBoard.textContent = `${playerScore}`;
+                    checkWinner();
+                }
+};
 
-function playRound (playerSelection, computerSelection) {
-        
-if ( 
-    (playerSelection == "rock" && computerSelection == "rock") ||
-    (playerSelection == "paper" && computerSelection == "paper") ||
-    (playerSelection == "scissors" && computerSelection == "scissors")
- ) {
-        alert(`It's a tie! You both have chosen ${playerSelection}`);
-        isGameValid = "Yes";
-    } else if (
-        (playerSelection == "rock" && computerSelection == "paper") || 
-        (playerSelection == "paper" && computerSelection == "scissors") ||
-        (playerSelection == "scissors" && computerSelection == "rock")
-    ) {
-        alert(`You lose! ${computerSelection} beats ${playerSelection}`);
-        computerScore++;
-        isGameValid = "Yes";
-    } else if (
-        (playerSelection == "rock" && computerSelection == "scissors") ||
-        (playerSelection == "paper" && computerSelection == "rock") ||
-        (playerSelection == "scissors" && computerSelection == "paper")
-    ) {
-        alert(`You win! ${playerSelection} beats ${computerSelection}`);
-        playerScore++;
-        isGameValid = "Yes";
-    } 
-    /*else if (
-        (playerSelection !== "rock") ||
-        (playerSelection !== "paper") ||
-        (playerSelection !== "scissors")
-    ) {
-        playerSelection = playerSelection.toUpperCase()
-        alert(`Does this ${playerSelection} look like rock, paper or scissors?`);
-        isGameValid = "No";
-    } */
-}
-
-/*
-function game() {
-    for (let i=0; i<5; i++) {
-        alert(`Rock, paper, scissors. 5 round game. \n${roundCount} round of 5`);
-        let playerSelection = prompt("Rock, Paper or Scissors?", "Paper").toLowerCase();
-        let computerSelection = computerPlay();
-        playRound(playerSelection, computerSelection);
-        roundCount++;
-        if (isGameValid == "No") {
-            alert(`Please play fair. \nThe game ends now. \nYou can restart by refreshing the page.`)
-            break;
-        }; 
-    };
-    if (isGameValid == "Yes" && playerScore == computerScore) {
-        alert(`Game of 5 results. \nIt's a tie. \nPlayer: ${playerScore}  Computer: ${computerScore}`)
-    } else if (isGameValid == "Yes" && playerScore > computerScore) {
-        alert(`Game of 5 results. \nYou win. \nPlayer: ${playerScore}  Computer: ${computerScore}`)
-    } else if (isGameValid == "Yes" && playerScore < computerScore) {
-        alert(`Game of 5 results. \nYou lost. \nPlayer: ${playerScore}  Computer: ${computerScore}`)
-    } else if (isGameValid = "No") {
-
+function checkWinner(){
+    if (playerScore === 5) {
+    alert(`You won the game!`); 
+        resetGame();
+    } else if (computerScore === 5) {
+        alert(`You lost the game. Computer wins.`);
+        resetGame();
     }
 }
-game(); */
+
+function resetGame(){
+    playerScore = 0;
+    computerScore = 0;
+    roundCount = 0;
+    computerScoreBoard.textContent = `${computerScore}`
+    playerScoreBoard.textContent = `${playerScore}`;
+    roundCounter.textContent = roundCount;
+}
+
+
+// playagain window with refresh page
