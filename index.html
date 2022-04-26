@@ -4,22 +4,61 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./style/style.css" rel="stylesheet">
+    <script src="./scripts/gameLogic.js" defer></script>    
+
     <title>Rock, paper, scissors</title>
 </head>
 <body>
-    <button class="player-button" id="rock">Rock</button>
-    <button class="player-button" id="paper">Paper</button>
-    <button class="player-button" id="scissors">Scissors</button>
-    <div>Computer choice:</div>
-    <div class="computer-choice"></div>
-    <div>Round:</div>
-    <div class="round-counter"></div>
-    <div>Computer Score:</div>
-    <div class="computer-score"></div>
-    <div>Player Score:</div>
-    <div class="player-score"></div>
-    <div class="round-comments"></div>
-    <div class="game-comments"></div>
-    <script src="./scripts/gameLogic.js"></script>    
+    <header>
+        <h1><a href="#">Rock Paper Scissors</a></h1>  
+      </header>
+    <main>
+        <div class="intro-div">This is a simple game of rock, paper, scissors. The game lasts until one of the players reach the score of 5. You are playing against computer with random choices. Good luck!</div>
+        <div class="scoreboard-container">
+            <div class="scoreboard-1">Scoreboard</div>
+            <div class="scoreboard-2">
+                <div>You:</div>
+                <div class="player-score">0</div>
+                <div>Enemy:</div>
+                <div class="computer-score">0</div>
+            </div>
+        </div>
+        <div>Choose:</div>
+        <div class="button-group">
+            <div class="player-button button" id="rock">Rock</div>
+            <div class="player-button button" id="paper">Paper</div>
+            <div class="player-button button" id="scissors">Scissors</div>
+        </div>
+        <div>Enemy:</div>
+        <div class="button-group">
+            <div class="button" id="rockAI">Rock</div>
+            <div class="button" id="paperAI">Paper</div>
+            <div class="button" id="scissorsAI">Scissors</div>
+        </div>
+        <div class="play-again-button">Play again?</div>
+        <div class="log-name">Log:</div>
+        <ul class="log-ul">
+            <li class="log-li">The game started. Choose your move.</li>
+        </ul>
+        <div class="dim-container"></div>
+    </main>
+    <footer>
+        <div class="footer-group">
+            <p>A project based on</p>
+            <div class="odin-group">
+                <a href="https://www.theodinproject.com/home" target="_blank">
+                    <img class="odin-logo" src="https://gist.githubusercontent.com/paulauskas-linas/8e086442e1a6223caef4792dbfce1288/raw/632a7a2f673b74238e8f95614d5ac365e8638b9f/odin.svg" alt="logo of odin project"></a>
+                    <span class="odin-text"><a href="https://www.theodinproject.com/home" target="_blank">The Odin Project</a></span><span>course</span>
+            </div>
+        </div>
+        <div class="footer-group">
+            <span>By Linas Paulauskas</span>
+            <div class="profile-group">
+                <a class="profile-link" href="https://github.com/paulauskas-linas"   target="_blank">
+                    <img class="profile-image" src="https://gist.githubusercontent.com/paulauskas-linas/5634d9c485f2d5670aab310d127ba085/raw/3737ef88d2c002b6579de37f0a1c89c19afa527b/GitHub-icon.svg" alt="github logo"></a>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
