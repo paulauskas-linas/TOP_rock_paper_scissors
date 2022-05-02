@@ -1,27 +1,48 @@
-
+// Get player buttons
 const playerButtons = document.querySelectorAll(".player-button");
-const computerScoreBoard = document.querySelector(".computer-score");
+//Get players score boards
 const playerScoreBoard = document.querySelector(".player-score");
+const computerScoreBoard = document.querySelector(".computer-score");
+//Get game log
 const logList = document.querySelector(".log-ul");
-const playAgainButton = document.querySelector(".play-again-button");
+//Get play again button
+const playAgainButtons = document.querySelectorAll(".play-again-button");
+//Define possible choices in an array
 const choices=["rock", "paper", "scissors"];
+//Get dimming layer div
+const dimLayer = document.querySelector(".dim-container");
+//Get pop up message of end game
+const endGamePopUp = document.querySelector(".endgame-pop-up");
+//Get result message div
+const resultMessage = document.querySelector(".result-message");
+//Hide pop up and dim layer
+endGamePopUp.classList.add("hide");
+dimLayer.classList.add("hide");
 
+//Create variables
 let computerSelection = "paper";
 let playerSelection = "paper";
 let playerScore = 0;
 let computerScore = 0;
 let roundResult = "";
 
+//Cycle through player buttons listening for a click. 
+//Once clicked, call computerplay, color computer choice and play a round of game
 playerButtons.forEach(button => {
     button.addEventListener('click', () => {
         playerSelection = button.getAttribute('id').toLowerCase();
         computerSelection = computerPlay();
-        playRound(playerSelection, computerSelection);
         colorComputerChoice();
+        playRound(playerSelection, computerSelection);
     })
 });
-playAgainButton.addEventListener('click', () => {
-    resetGame()
+
+//Cycle through play again buttons listening for a click.
+//Once clicked, call for resetting the game
+playAgainButtons.forEach(button => {
+   button.addEventListener('click', () => {
+    resetGame() 
+    })
 });
 
 function colorComputerChoice(){
@@ -42,11 +63,12 @@ function colorComputerChoice(){
         paperAI.classList.remove("chosen-button");
     }
 }
-
+//Function to randomly select computer choice
 function computerPlay() {
     return choices[Math.floor(choices.length*Math.random())];
 };
 
+//Function that plays the game and determines the winner of the round, calls for updating log and scoreboard and checking for the game's winner
 function playRound (playerSelection, computerSelection) { 
     if ( 
         (playerSelection == "rock" && computerSelection == "rock") ||
@@ -91,20 +113,40 @@ function updateLog() {
         logList.insertBefore(logListItem, logList.firstChild);
     }
 }
+
 function updateScore() {
     computerScoreBoard.textContent = `${computerScore}`
     playerScoreBoard.textContent = `${playerScore}`
 }
+
 function checkWinner(){
+    const pScore = document.getElementById("p-score");
+    const cScore = document.getElementById("c-score");
     if (playerScore === 5) {
-        alert(`You won the game!`); 
-        resetGame();
+        endGamePopUp.classList.remove("hide");
+        dimLayer.classList.remove("hide");
+        resultMessage.textContent = "Congratulations. You won!";
+        pScore.textContent = `${playerScore}`;
+        cScore.textContent = `${computerScore}`;
+        listenForClickOutside();
     } else if (computerScore === 5) {
-        alert(`You lost the game. Enemy wins.`);
-        resetGame();
+        endGamePopUp.classList.remove("hide");
+        dimLayer.classList.remove("hide");
+        resultMessage.textContent = "Unfortunately, You lost.";
+        pScore.textContent = `${playerScore}`;
+        cScore.textContent = `${computerScore}`;
+        listenForClickOutside();
     }
 }
 
 function resetGame(){
     window.location.reload();
 }
+
+//Close on click anywhere outside message box
+function listenForClickOutside() {
+    dimLayer.addEventListener('click', () => {
+        endGamePopUp.classList.add("hide");
+        dimLayer.classList.add("hide");
+  })
+}  
